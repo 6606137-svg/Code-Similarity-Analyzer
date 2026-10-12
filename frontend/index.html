@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeGuard AI | Plagiarism Analyzer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>🛡 CodeGuard <span>AI</span></h2>
+    <p class="menu-title">WORKSPACE</p>
+    <a class="nav active" href="#dashboard">▦ Dashboard</a>
+    <a class="nav" href="#analyzer">⌘ Code Analyzer</a>
+    <a class="nav" href="#results">▤ Reports</a>
+    <a class="nav" href="#history">◷ History</a>
+    <div class="sidebar-bottom">
+      <p>MAJOR PROJECT</p>
+      <small>AI Code Similarity Analyzer</small>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">WORKSPACE / OVERVIEW</p>
+        <h1 id="dashboard">Code Analysis Dashboard</h1>
+      </div>
+      <div class="profile"><span class="avatar">S</span> Student</div>
+    </header>
+
+    <section class="welcome">
+      <div>
+        <p class="eyebrow light">INTELLIGENT CODE REVIEW</p>
+        <h2>Detect similarities. Protect originality.</h2>
+        <p>Analyze source code and review potential matching patterns.</p>
+        <a href="#analyzer" class="primary-link">Start New Analysis →</a>
+      </div>
+      <div class="shield">⌘</div>
+    </section>
+
+    <section class="stats">
+      <article class="stat-card">
+        <p>Total Analyses</p><h2 id="totalAnalyses">0</h2>
+        <small>Analyses this session</small>
+      </article>
+      <article class="stat-card">
+        <p>High Similarity</p><h2 id="highCount">0</h2>
+        <small>Scores of 70% or higher</small>
+      </article>
+      <article class="stat-card">
+        <p>Average Similarity</p><h2 id="averageScore">0%</h2>
+        <small>Across completed analyses</small>
+      </article>
+    </section>
+
+    <section class="panel" id="analyzer">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ANALYSIS ENGINE</p>
+          <h2>Code Similarity Analyzer</h2>
+        </div>
+        <span class="status"><i></i> Demo mode</span>
+      </div>
+
+      <form id="analysisForm">
+        <div class="form-grid">
+          <label>
+            Programming Language
+            <select id="language">
+              <option>Java</option>
+              <option>C++</option>
+              <option>Python</option>
+              <option>JavaScript</option>
+              <option>C</option>
+            </select>
+          </label>
+          <label>
+            Analysis Name
+            <input id="analysisName" placeholder="e.g. DSA Assignment 1">
+          </label>
+        </div>
+
+        <label class="field-label" for="sourceCode">Paste source code</label>
+        <textarea id="sourceCode" spellcheck="false"
+          placeholder="// Paste your source code here..."></textarea>
+
+        <div class="editor-footer">
+          <span id="charCount">0 characters</span>
+          <label class="upload-btn" for="codeFile">↑ Upload code file</label>
+          <input type="file" id="codeFile" accept=".java,.cpp,.c,.py,.js,.txt">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="secondary-btn" id="clearBtn">Clear</button>
+          <button type="submit" class="primary-btn" id="analyzeBtn">
+            Analyze Code →
+          </button>
+        </div>
+      </form>
+      <p class="notice">Educational demo: similarity is estimated in your browser.
+        No external code repository is searched.</p>
+    </section>
+
+    <section class="panel results-panel" id="results">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">LATEST OUTPUT</p>
+          <h2>Analysis Results</h2>
+        </div>
+        <span id="resultBadge" class="result-badge">Waiting for code</span>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        <div class="empty-icon">⌕</div>
+        <h3>No analysis yet</h3>
+        <p>Submit source code above to see its demo similarity score.</p>
+      </div>
+
+      <div id="resultContent" hidden>
+        <div class="score-row">
+          <div>
+            <p class="muted">Estimated token similarity</p>
+            <h2 id="scoreText">0%</h2>
+          </div>
+          <div class="score-track"><div id="scoreBar"></div></div>
+        </div>
+        <p id="resultDescription" class="result-description"></p>
+        <h3>Normalized code preview</h3>
+        <pre id="codePreview"></pre>
+        <p class="notice">This score compares the submitted code's tokens with a
+          small illustrative sample. It is not proof of plagiarism.</p>
+        <button class="secondary-btn" id="downloadBtn">Download Report</button>
+      </div>
+    </section>
+
+    <section class="panel" id="history">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">RECENT ACTIVITY</p>
+          <h2>Analysis History</h2>
+        </div>
+        <button class="secondary-btn" id="clearHistoryBtn">Clear History</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Analysis</th><th>Language</th><th>Similarity</th><th>Date</th><th>Status</th></tr>
+          </thead>
+          <tbody id="historyBody">
+            <tr><td colspan="5" class="empty-cell">No analyses recorded yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>CodeGuard AI · Academic Major Project · Frontend Prototype</footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
