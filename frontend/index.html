@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#10131b">
+    <title>CodeLens | Code Similarity Analyzer</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+</head>
+<body>
+<div class="app-shell">
+
+    <aside class="sidebar">
+        <a class="brand" href="#">
+            <span class="brand-icon">&lt;/&gt;</span>
+            <span>CodeLens<small>CODE INTELLIGENCE</small></span>
+        </a>
+
+        <p class="nav-heading">WORKSPACE</p>
+        <nav class="nav-menu">
+            <a href="#dashboard" class="nav-link active">
+                <span>▦</span> Dashboard
+            </a>
+            <a href="#comparison" class="nav-link">
+                <span>⇄</span> Code Comparison
+            </a>
+            <a href="#results" class="nav-link">
+                <span>◉</span> Analysis Results
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="status-dot"></div>
+            <div>
+                <strong>Local Analysis</strong>
+                <small>Backend connection required</small>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+        <header class="topbar">
+            <div>
+                <p class="breadcrumb">Workspace / Analyzer</p>
+                <h1>Code Similarity Analyzer</h1>
+            </div>
+            <span class="version-tag">DEVELOPER TOOL</span>
+        </header>
+
+        <section class="intro">
+            <div>
+                <p class="eyebrow">SOURCE CODE INTELLIGENCE</p>
+                <h2>Compare code. Understand similarities.</h2>
+                <p>
+                    Analyze two source code files using your configured
+                    similarity detection backend.
+                </p>
+            </div>
+            <div class="intro-icon">{ }</div>
+        </section>
+
+        <section class="stats-grid" aria-label="Analysis status">
+            <article class="stat-card">
+                <span class="stat-label">Selected Files</span>
+                <strong id="selectedCount">0 / 2</strong>
+                <small>Files ready for comparison</small>
+            </article>
+            <article class="stat-card">
+                <span class="stat-label">Latest Similarity</span>
+                <strong id="latestSimilarity">--</strong>
+                <small>Populated only after a valid result</small>
+            </article>
+            <article class="stat-card">
+                <span class="stat-label">Analysis Status</span>
+                <strong id="analysisStatus">Idle</strong>
+                <small id="statusDetail">Select two source files</small>
+            </article>
+        </section>
+
+        <section class="panel" id="comparison">
+            <div class="section-heading">
+                <div>
+                    <h2>Code Comparison</h2>
+                    <p>Select two files to inspect and compare.</p>
+                </div>
+                <span class="language-tag">SOURCE CODE</span>
+            </div>
+
+            <form id="compareForm">
+                <div class="editor-grid">
+
+                    <article class="editor-card">
+                        <div class="editor-title">
+                            <div>
+                                <span class="file-indicator blue"></span>
+                                <strong>Source A</strong>
+                            </div>
+                            <span class="file-label">FILE 01</span>
+                        </div>
+
+                        <label class="file-picker" for="file1">
+                            <span class="upload-icon">↑</span>
+                            <strong>Choose first code file</strong>
+                            <span>Python, Java, C, C++, JavaScript or text</span>
+                            <input
+                                type="file"
+                                id="file1"
+                                name="file1"
+                                accept=".py,.java,.c,.cpp,.h,.hpp,.js,.ts,.txt,.go,.php,.rb,.cs,.html,.css"
+                                required
+                            >
+                        </label>
+
+                        <div class="file-meta">
+                            <span id="file1Name">No file selected</span>
+                            <span id="file1Size">--</span>
+                        </div>
+
+                        <div class="code-window">
+                            <div class="code-toolbar">
+                                <span>CODE PREVIEW</span>
+                                <span id="file1Language">Plain text</span>
+                            </div>
+                            <pre><code id="preview1">Select a file to preview its source code.</code></pre>
+                        </div>
+                    </article>
+
+                    <article class="editor-card">
+                        <div class="editor-title">
+                            <div>
+                                <span class="file-indicator purple"></span>
+                                <strong>Source B</strong>
+                            </div>
+                            <span class="file-label">FILE 02</span>
+                        </div>
+
+                        <label class="file-picker" for="file2">
+                            <span class="upload-icon">↑</span>
+                            <strong>Choose second code file</strong>
+                            <span>Select the code you want to compare</span>
+                            <input
+                                type="file"
+                                id="file2"
+                                name="file2"
+                                accept=".py,.java,.c,.cpp,.h,.hpp,.js,.ts,.txt,.go,.php,.rb,.cs,.html,.css"
+                                required
+                            >
+                        </label>
+
+                        <div class="file-meta">
+                            <span id="file2Name">No file selected</span>
+                            <span id="file2Size">--</span>
+                        </div>
+
+                        <div class="code-window">
+                            <div class="code-toolbar">
+                                <span>CODE PREVIEW</span>
+                                <span id="file2Language">Plain text</span>
+                            </div>
+                            <pre><code id="preview2">Select a file to preview its source code.</code></pre>
+                        </div>
+                    </article>
+
+                </div>
+
+                <div class="compare-actions">
+                    <p id="statusMessage" role="status" aria-live="polite">
+                        Choose two files to begin.
+                    </p>
+                    <button type="submit" id="compareBtn">
+                        <span>⇄</span> Analyze Similarity
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel results-panel" id="results">
+            <div class="section-heading">
+                <div>
+                    <h2>Analysis Results</h2>
+                    <p>Results returned by your Flask backend.</p>
+                </div>
+                <span class="language-tag">LIVE RESULT</span>
+            </div>
+
+            <div id="emptyResults" class="empty-results">
+                <div class="empty-icon">⌘</div>
+                <h3>No analysis available yet</h3>
+                <p>
+                    Upload both files and run an analysis.
+                    Results will appear here after the backend responds.
+                </p>
+            </div>
+
+            <div id="resultContent" hidden>
+                <div class="result-summary">
+                    <div>
+                        <p class="stat-label">CODE SIMILARITY</p>
+                        <strong id="resultPercentage">--</strong>
+                        <p id="resultMessage">Analysis completed.</p>
+                    </div>
+                    <div class="result-symbol">%</div>
+                </div>
+
+                <div class="progress-track">
+                    <div id="resultBar" class="progress-fill"></div>
+                </div>
+
+                <div id="extraResults" class="extra-results" hidden>
+                    <h3>Additional backend details</h3>
+                    <pre id="extraResultsText"></pre>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span>CodeLens · AI-Based Plagiarism Detection &amp; Code Similarity Analyzer</span>
+            <span>Academic Project</span>
+        </footer>
+    </main>
+</div>
+</body>
+</html>
